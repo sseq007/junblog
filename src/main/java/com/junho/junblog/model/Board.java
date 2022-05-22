@@ -1,16 +1,18 @@
 package com.junho.junblog.model;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,10 +33,12 @@ public class Board {
 	@ColumnDefault("0")
 	private int count;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId")
 	private User user;
 	
+	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER) // mappedby 연관관계의 주인이 아니다(Fk x)
+	private List<Reply> reply;
 	@CreationTimestamp 
 	private Timestamp createDate;
 }
