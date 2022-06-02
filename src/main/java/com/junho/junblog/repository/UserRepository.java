@@ -1,5 +1,7 @@
 package com.junho.junblog.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,6 +11,7 @@ import com.junho.junblog.model.User;
 //@Respository 생략 가능
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	Optional<User>findByUsername(String username);
 	
 
 }
