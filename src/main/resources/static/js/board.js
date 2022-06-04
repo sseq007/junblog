@@ -6,6 +6,9 @@
 				$("#btn-delete").on("click",()=>{
 				this.deleteById();
 			});
+				$("#btn-update").on("click",()=>{
+				this.update();
+			});
 		},
 		save: function(){
 			//alert('user의 save함수 호출된다');
@@ -32,7 +35,7 @@
 		
 	deleteById : function(){
 		
-		var id=$("#id").text();
+		let id=$("#id").text();
 		
 			//alert('user의 save함수 호출된다');
 			$.ajax({
@@ -46,8 +49,32 @@
 			}).fail(function(error){
 				alert(JSON.stringify(error));
 			});
-		}
+		},
 		
+	 update: function() {
+		 let id = $("#id").val();
+
+			 let data = {
+				 title: $("#title").val(),
+				 content: $("#content").val()
+			 };
+		 //console.log(data);
+
+		 $.ajax({
+			 type: "PUT",
+			 url: "/api/board/"+id,
+			 data: JSON.stringify(data),
+			 contentType: "application/json; charset=utf-8",
+			 dataType: "json"
+		 }).done(function(resp) {
+			 alert("글수정이 완료되었습니다");
+			 //console.log(resp);
+			 location.href = "/";
+		 }).fail(function(error) {
+			 alert(JSON.stringify(error));
+		 });
+	 }
+
 }
 
 
