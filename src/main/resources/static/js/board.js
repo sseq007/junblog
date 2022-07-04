@@ -1,15 +1,18 @@
- let index={
-		init: function() {
-			$("#btn-save").on("click",()=>{
-				this.save();
-				});
-				$("#btn-delete").on("click",()=>{
-				this.deleteById();
-			});
-				$("#btn-update").on("click",()=>{
-				this.update();
-			});
-		},
+let index = {
+	init: function() {
+		$("#btn-save").on("click", () => {
+			this.save();
+		});
+		$("#btn-delete").on("click", () => {
+			this.deleteById();
+		});
+		$("#btn-update").on("click", () => {
+			this.update();
+		});
+		$("#btn-reply-save").on("click", () => {
+			this.replySave();
+		});
+	},
 		save: function(){
 			//alert('user의 save함수 호출된다');
 			let data={
@@ -73,7 +76,31 @@
 		 }).fail(function(error) {
 			 alert(JSON.stringify(error));
 		 });
-	 }
+	 },
+
+	replySave: function() {
+		//alert('user의 save함수 호출된다');
+		let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			content: $("#reply-content").val()
+		};
+
+		$.ajax({
+			type: "POST",
+			url: `/api/board/${data.boardId}/reply`,
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		}).done(function(resp) {
+			alert("댓글작성이 완료되었습니다");
+			//console.log(resp);
+			location.href = `/board/${data.boardId}`;
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+	}
+
 
 }
 

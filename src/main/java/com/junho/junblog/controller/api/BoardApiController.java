@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.junho.junblog.config.auth.PrincipalDetail;
+import com.junho.junblog.dto.ReplySaveRequestDto;
 import com.junho.junblog.dto.ResponseDto;
 import com.junho.junblog.model.Board;
+import com.junho.junblog.model.Reply;
 import com.junho.junblog.service.BoardService;
 
 @RestController
@@ -42,6 +44,14 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+	
+		
+		boardService.댓글쓰기(replySaveRequestDto);
+
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	}
 	
 	
 //	@PostMapping("/api/user/login")
