@@ -23,23 +23,29 @@ let index={
 				data:JSON.stringify(data),
 				contentType:"application/json; charset=utf-8",
 				dataType:"json"
-			}).done(function(resp){
-				alert("회원가입이 완료되었습니다");
-				//console.log(resp);
-				location.href="/";
-			}).fail(function(error){
+			}).done(function(resp) {
+
+				if (resp.status == 500) {
+					alert("회원가입에 실패하였습니다");
+				}
+				else {
+					alert("회원가입이 완료되었습니다");
+					//console.log(resp);
+					location.href = "/";
+				}
+			}).fail(function(error) {
 				alert(JSON.stringify(error));
 			});
-		},
-		
-		update: function(){
-			//alert('user의 save함수 호출된다');
-			let data={
-				id: $("#id").val(),
-				username: $("#username").val(),
-				password: $("#password").val(),
-				email: $("#email").val()
-			};
+	},
+
+	update: function() {
+		//alert('user의 save함수 호출된다');
+		let data = {
+			id: $("#id").val(),
+			username: $("#username").val(),
+			password: $("#password").val(),
+			email: $("#email").val()
+		};
 			//console.log(data);
 			
 			$.ajax({
